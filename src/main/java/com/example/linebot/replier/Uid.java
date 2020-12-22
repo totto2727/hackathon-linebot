@@ -21,10 +21,10 @@ public class Uid implements Reply{
         var lineUid=event.getSource().getUserId();
         var firebaseUid=event.getMessage().getText();
         try {
-            new FirestoreService().setUid(lineUid,firebaseUid);
-        } catch (ExecutionException | InterruptedException | IOException e) {
+            var fire=new FirestoreService();
+            return new TextMessage(fire.test());
+        } catch (IOException e) {
             return new TextMessage("連携に失敗しました");
         }
-        return new TextMessage("連携に成功しました");
     }
 }

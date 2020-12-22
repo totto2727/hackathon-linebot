@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class FirestoreService {
-    Firestore db;
+    private final Firestore db;
 
     public FirestoreService() throws IOException {
         InputStream serviceAccount = new FileInputStream("timetable-2a507-firebase-adminsdk-cftah-5ae491cb19.json");
@@ -24,6 +24,10 @@ public class FirestoreService {
                 .build();
         FirebaseApp.initializeApp(options);
         db = FirestoreClient.getFirestore();
+    }
+
+    public String test(){
+        return "test";
     }
 
     public void setUid(String lineUid, String firebaseUid) throws ExecutionException, InterruptedException {
