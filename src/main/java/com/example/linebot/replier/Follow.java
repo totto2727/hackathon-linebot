@@ -14,7 +14,7 @@ public class Follow implements Reply {
     @Override
     public Message reply() {
         var userId = this.event.getSource().getUserId();
-        var text = String.format("あなたのユーザーID:%s", userId);
+        var text = "連携手順\n①以下のURLから、ログインする\n②UIDを発行し、コピーする\n③｢連携｣と送信\n④UIDを聞かれる後、UIDを入力して送信";
         return new TextMessage(text);
     }
 }
