@@ -1,6 +1,7 @@
 package com.example.linebot;
 
-import com.example.linebot.replier.Uid;
+import com.example.linebot.replier.GetUid;
+import com.example.linebot.replier.SetUid;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
@@ -18,7 +19,7 @@ public class Callback {
 
     @EventMapping
     public Message handleFollow(FollowEvent event) {
-        var follow = new Follow(event);
+        var follow = new Follow();
         return follow.reply();
     }
 
@@ -26,7 +27,8 @@ public class Callback {
     public  Message handleMessage(MessageEvent<TextMessageContent> event){
         var tmc=event.getMessage();
         var text=tmc.getText();
-        if(text.matches("[a-zA-Z0-9]{28}")) return new Uid(event).reply();
+        if(text.matches("[a-zA-Z0-9]{28}")) return new SetUid(event).reply();
+        if(text.equals("連携情報"))return new GetUid(event).reply();
         return new TextMessage("月~金･･･その曜日の一覧を表示\n今日･明日･･･その日の一覧を表示\n数字･･･今日のその時間の授業を表示");
     }
 }

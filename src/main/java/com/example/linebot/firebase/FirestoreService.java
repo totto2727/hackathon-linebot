@@ -19,8 +19,8 @@ public class FirestoreService {
     private final Firestore db;
 
     public FirestoreService() throws IOException {
-        List<FirebaseApp>apps=FirebaseApp.getApps();
-        if(apps.size()==0) {
+        List<FirebaseApp> apps = FirebaseApp.getApps();
+        if (apps.size() == 0) {
             InputStream serviceAccount = new FileInputStream("src/main/java/com/example/linebot/firebase/timetable-2a507-firebase-adminsdk-cftah-5ae491cb19.json");
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
@@ -33,9 +33,19 @@ public class FirestoreService {
 
     public void setUid(String lineUid, String firebaseUid) throws ExecutionException, InterruptedException {
         var docRef = db.collection("LineConnection").document(lineUid);
-        var data = new HashMap<String,String>();
-        data.put("firebase",firebaseUid);
+        var data = new HashMap<String, String>();
+        data.put("firebase", firebaseUid);
         var result = docRef.set(data);
         System.out.println(result.get().getUpdateTime());
+    }
+
+    public String getUid(String lineUid) throws ExecutionException, InterruptedException{
+        var docRef = db.collection("LineConnection").document(lineUid);
+        var query = docRef.get();
+        var document = query.get();
+        var data = document.getData();
+        if (data != null) return data.get("firebase").toString();
+        else return "";
+
     }
 }
