@@ -40,6 +40,11 @@
             <artifactId>line-bot-spring-boot</artifactId>
             <version>4.3.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>7.0.1</version>
+        </dependency>
 	</dependencies>
 
 	<build>
