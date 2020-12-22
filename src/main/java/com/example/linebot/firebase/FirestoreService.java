@@ -8,6 +8,7 @@ import com.google.firebase.cloud.FirestoreClient;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -25,7 +26,8 @@ public class FirestoreService {
 
     public void setUid(String lineUid, String firebaseUid) throws ExecutionException, InterruptedException {
         var docRef = db.collection("LineConnection").document(lineUid);
-        var data = Map.of("firebase",firebaseUid);
+        var data = new HashMap<String,String>();
+        data.put("firebase",firebaseUid);
         var result = docRef.set(data);
         System.out.println(result.get().getUpdateTime());
     }

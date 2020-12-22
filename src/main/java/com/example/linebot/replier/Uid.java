@@ -25,6 +25,6 @@ public class Uid implements Reply{
         } catch (ExecutionException | InterruptedException | IOException e) {
             return new TextMessage("連携に失敗しました");
         }
-        return new TextMessage("連携完了しました");
+        return new TextMessage("連携に成功しました");
     }
 }
