@@ -9,7 +9,9 @@ import com.google.firebase.cloud.FirestoreClient;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -17,17 +19,16 @@ public class FirestoreService {
     private final Firestore db;
 
     public FirestoreService() throws IOException {
-        InputStream serviceAccount = new FileInputStream("timetable-2a507-firebase-adminsdk-cftah-5ae491cb19.json");
-        FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setDatabaseUrl("https://timetable-2a507.firebaseio.com/")
-                .build();
-        FirebaseApp.initializeApp(options);
+        List<FirebaseApp>apps=FirebaseApp.getApps();
+        if(apps.size()==0) {
+            InputStream serviceAccount = new FileInputStream("src/main/java/com/example/linebot/firebase/timetable-2a507-firebase-adminsdk-cftah-5ae491cb19.json");
+            FirebaseOptions options = FirebaseOptions.builder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setDatabaseUrl("https://timetable-2a507.firebaseio.com/")
+                    .build();
+            FirebaseApp.initializeApp(options);
+        }
         db = FirestoreClient.getFirestore();
-    }
-
-    public String test(){
-        return "test";
     }
 
     public void setUid(String lineUid, String firebaseUid) throws ExecutionException, InterruptedException {
