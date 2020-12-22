@@ -8,6 +8,7 @@ import com.google.firebase.cloud.FirestoreClient;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -16,8 +17,9 @@ public class FirestoreService {
     Firestore db;
 
     public FirestoreService() throws IOException {
+        InputStream serviceAccount = new FileInputStream("timetable-2a507-firebase-adminsdk-cftah-5ae491cb19.json");
         FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.getApplicationDefault())
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .setDatabaseUrl("https://timetable-2a507.firebaseio.com/")
                 .build();
         FirebaseApp.initializeApp(options);
