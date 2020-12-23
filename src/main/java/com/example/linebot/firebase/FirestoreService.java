@@ -39,7 +39,7 @@ public class FirestoreService {
         System.out.println(result.get().getUpdateTime());
     }
 
-    public String getUid(String lineUid) throws ExecutionException, InterruptedException{
+    public String getUid(String lineUid) throws ExecutionException, InterruptedException {
         var docRef = db.collection("LineConnection").document(lineUid);
         var query = docRef.get();
         var document = query.get();
@@ -47,5 +47,13 @@ public class FirestoreService {
         if (data != null) return data.get("firebase").toString();
         else return "";
 
+    }
+
+    public Map<String,Object> getSubjects(String lineUid) throws ExecutionException, InterruptedException {
+        var firebaseUid = getUid(lineUid);
+        var docRef=db.collection("Timetable").document(firebaseUid);
+        var query=docRef.get();
+        var document=query.get();
+        return document.getData();
     }
 }
