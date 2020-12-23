@@ -8,6 +8,7 @@ import com.linecorp.bot.model.message.TextMessage;
 
 import java.io.IOException;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class AllSubjects implements Reply{
@@ -22,8 +23,11 @@ public class AllSubjects implements Reply{
         var lineUid=event.getSource().getUserId();
         try {
             var data=new FirestoreService().getSubjects(lineUid);
-            data.values().forEach(System.out::println);
-            System.out.println(data.toString());
+            //var subjects=
+            data.values()
+                    .stream()
+                    .filter(k->k instanceof Map)
+                    .forEach(System.out::println);
             return new TextMessage("データを取得しました");
         } catch (ExecutionException | InterruptedException | IOException e) {
             return new TextMessage("データの取得に失敗しました");
