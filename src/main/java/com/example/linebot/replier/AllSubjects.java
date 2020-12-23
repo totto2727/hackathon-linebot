@@ -7,12 +7,13 @@ import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.concurrent.ExecutionException;
 
-public class GetSubjects implements Reply{
+public class AllSubjects implements Reply{
     private final MessageEvent<TextMessageContent> event;
 
-    public GetSubjects(MessageEvent<TextMessageContent> event) {
+    public AllSubjects(MessageEvent<TextMessageContent> event) {
         this.event = event;
     }
 
@@ -21,6 +22,7 @@ public class GetSubjects implements Reply{
         var lineUid=event.getSource().getUserId();
         try {
             var data=new FirestoreService().getSubjects(lineUid);
+            data.values().forEach(System.out::println);
             System.out.println(data.toString());
             return new TextMessage("データを取得しました");
         } catch (ExecutionException | InterruptedException | IOException e) {
