@@ -9,10 +9,10 @@ import com.linecorp.bot.model.message.TextMessage;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-public class getSubjects implements Reply{
+public class GetSubjects implements Reply{
     private final MessageEvent<TextMessageContent> event;
 
-    public getSubjects(MessageEvent<TextMessageContent> event) {
+    public GetSubjects(MessageEvent<TextMessageContent> event) {
         this.event = event;
     }
 
