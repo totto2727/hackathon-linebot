@@ -24,7 +24,7 @@ public class AllSubjects implements Reply {
         var lineUid = event.getSource().getUserId();
         try {
             var subjects =new FirestoreService().getSubjects(lineUid);
-            var message= String.join("\n", subjects);
+            var message=subjects.stream().map(Subject::showSubject).collect(Collectors.joining("\n"));
             return new TextMessage(message);
         } catch (ExecutionException | InterruptedException | IOException e) {
             return new TextMessage("データの取得に失敗しました");
