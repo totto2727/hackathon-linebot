@@ -9,19 +9,15 @@ import com.linecorp.bot.model.message.TextMessage;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-public class GetUid implements IReply {
-    private final MessageEvent<TextMessageContent> event;
-
+public class GetUid extends Reply<MessageEvent<TextMessageContent>> {
     public GetUid(MessageEvent<TextMessageContent> event) {
-        this.event = event;
+        super(event);
     }
 
     @Override
     public Message reply() {
-        var lineUid = event.getSource().getUserId();
-
         try {
-            var firebaseUid = new FirestoreService().getUid(lineUid);
+            var firebaseUid = new FirestoreService(lineUid).getUid();
             return new TextMessage("UID:" + firebaseUid);
         } catch (ExecutionException | InterruptedException | IOException e) {
             return new TextMessage("データを取得できませんでした");

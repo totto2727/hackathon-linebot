@@ -26,8 +26,7 @@ public enum Dotw {
     }
 
     public static String searchDotw(String i) {
-        for (var dotw:
-             Dotw.values()) {
+        for (var dotw: Dotw.values()) {
             if(i.equals(dotw.getI())) return dotw.getDotw();
         }
         return null;

@@ -12,19 +12,16 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-public class AllSubjects implements IReply {
-    private final MessageEvent<TextMessageContent> event;
-
+public class AllSubjects extends Reply<MessageEvent<TextMessageContent>> {
     public AllSubjects(MessageEvent<TextMessageContent> event) {
-        this.event = event;
+        super(event);
     }
 
     @Override
     public Message reply() {
-        var lineUid = event.getSource().getUserId();
         try {
-            var subjects =new FirestoreService().getSubjects(lineUid);
-            var message=subjects.stream().map(Subject::showSubject).collect(Collectors.joining("\n"));
+            var subjects =new FirestoreService(lineUid).getSubjects();
+            var message=subjects.stream().map(Subject::replyMessage).collect(Collectors.joining("\n"));
             return new TextMessage(message);
         } catch (ExecutionException | InterruptedException | IOException e) {
             return new TextMessage("データの取得に失敗しました");

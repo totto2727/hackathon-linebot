@@ -2,6 +2,8 @@ package com.example.linebot.firebase;
 
 import com.example.linebot.utils.Subject;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -16,8 +18,10 @@ import java.util.stream.Collectors;
 
 public class FirestoreService {
     private final Firestore db;
+    private final DocumentReference connectionDocRef;
+    private final CollectionReference timetableColRef;
 
-    public FirestoreService() throws IOException {
+    public FirestoreService(String lineUid) throws IOException {
         List<FirebaseApp> apps = FirebaseApp.getApps();
         if (apps.size() == 0) {
             InputStream serviceAccount = new FileInputStream("src/main/java/com/example/linebot/firebase/timetable-2a507-firebase-adminsdk-cftah-5ae491cb19.json");
@@ -27,37 +31,36 @@ public class FirestoreService {
                     .build();
             FirebaseApp.initializeApp(options);
         }
-        db = FirestoreClient.getFirestore();
+        this.db = FirestoreClient.getFirestore();
+        this.connectionDocRef = db.collection("LineConnection").document(lineUid);
+        this.timetableColRef = db.collection("Timetable");
     }
 
-    public void setUid(String lineUid, String firebaseUid) throws ExecutionException, InterruptedException {
-        var docRef = db.collection("LineConnection").document(lineUid);
-        var data = new HashMap<String, String>();
-        data.put("firebase", firebaseUid);
-        var result = docRef.set(data);
-        System.out.println(result.get().getUpdateTime());
+    public boolean setUid(String firebaseUid) throws ExecutionException, InterruptedException {
+        var existUser = this.timetableColRef.document(firebaseUid).get().get().exists();
+        if (existUser) {
+            this.connectionDocRef.set(Map.of("firebaseUid", firebaseUid));
+        }
+        return existUser;
     }
 
-    public String getUid(String lineUid) throws ExecutionException, InterruptedException,NullPointerException {
-        var docRef = db.collection("LineConnection").document(lineUid);
+    public String getUid() throws ExecutionException, InterruptedException, NullPointerException {
+        var query = this.connectionDocRef.get();
+        var document = query.get();
+        var data = document.getData();
+        return Objects.requireNonNull(data).get("firebaseUid").toString();
+    }
+
+    public List<Subject> getSubjects() throws ExecutionException, InterruptedException, NullPointerException {
+        var firebaseUid = getUid();
+        var docRef = this.timetableColRef.document(firebaseUid);
         var query = docRef.get();
         var document = query.get();
         var data = document.getData();
-        return Objects.requireNonNull(data).get("firebase").toString();
-    }
-
-    public List<Subject> getSubjects(String lineUid) throws ExecutionException, InterruptedException ,NullPointerException{
-        var firebaseUid = getUid(lineUid);
-        var docRef=db.collection("Timetable").document(firebaseUid);
-        var query=docRef.get();
-        var document=query.get();
-        var data=document.getData();
-        return Objects.requireNonNull(data)
-                .values()
-                .stream()
-                .filter(v->v instanceof Map)
-                .map(v->(Map<?,?>)v)
-                .filter(v->v.get("name")!=null&&v.get("name")!="")
+        return Objects.requireNonNull(data).values().stream()
+                .filter(v -> v instanceof Map)
+                .map(v -> (Map<?, ?>) v)
+                .filter(v -> v.get("name") != null && v.get("name") != "")
                 .map(Subject::new)
                 .sorted(Comparator.comparing(Subject::getDotw).thenComparing(Subject::getPeriod))
                 .collect(Collectors.toList());

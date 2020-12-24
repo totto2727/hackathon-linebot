@@ -21,7 +21,7 @@ public class Subject {
         return period;
     }
 
-    public String showSubject(){
+    public String replyMessage(){
         return Dotw.searchDotw(dotw)+ period+": " +name;
     }
 }
