@@ -49,7 +49,7 @@ public class FirestoreService {
         return Objects.requireNonNull(data).get("firebase").toString();
     }
 
-    public List<Subject> getSubjects(String lineUid) throws ExecutionException, InterruptedException ,NullPointerException{
+    public List<Map<?,?>> getSubjects(String lineUid) throws ExecutionException, InterruptedException ,NullPointerException{
         var firebaseUid = getUid(lineUid);
         var docRef=db.collection("Timetable").document(firebaseUid);
         var query=docRef.get();
@@ -60,7 +60,6 @@ public class FirestoreService {
                 .map(v->(Map<?,?>)v)
                 .filter(v->v.containsKey("name"))
                 .filter(v->v.get("name")!=null&&v.get("name")!="")
-                .map(Subject::new)
                 .collect(Collectors.toList());
     }
 }
