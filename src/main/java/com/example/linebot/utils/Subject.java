@@ -8,7 +8,7 @@ public class Subject {
     private int dotw;
 
     public Subject(Map<?,?> subject) {
-        this.name = String.valueOf(subject.get("name"));
+        this.name = (String) subject.get("name");
         this.period = (int) subject.get("period");
         this.dotw = (int) subject.get("dotw");
     }
