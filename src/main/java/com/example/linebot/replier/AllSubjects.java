@@ -25,7 +25,7 @@ public class AllSubjects implements Reply {
         try {
             var subjects =new FirestoreService().getSubjects(lineUid);
             var message=subjects.stream().map(Subject::showSubject).collect(Collectors.joining("\n"));
-            return new TextMessage("受信成功");
+            return new TextMessage(message);
         } catch (ExecutionException | InterruptedException | IOException e) {
             return new TextMessage("データの取得に失敗しました");
         }catch (NullPointerException e){
