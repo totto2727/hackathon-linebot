@@ -29,7 +29,7 @@ public class AllSubjects implements Reply {
         } catch (ExecutionException | InterruptedException | IOException e) {
             return new TextMessage("データの取得に失敗しました");
         }catch (NullPointerException e){
-            return new TextMessage("データがありません")
+            return new TextMessage("データがありません");
         }
     }
 }
