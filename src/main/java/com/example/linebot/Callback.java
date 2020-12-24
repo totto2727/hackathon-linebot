@@ -31,6 +31,10 @@ public class Callback {
         if (text.matches("[a-zA-Z0-9]{28}")) return new SetUid(event).reply();
         if (text.equals("連携情報")) return new GetUid(event).reply();
         if (text.equals("時間割")) return new AllSubjects(event).reply();
-        return new TextMessage("月~金･･･その曜日の一覧を表示");//\n今日･明日･･･その日の一覧を表示\n数字･･･今日のその時間の授業を表示
+        return new TextMessage(
+                "連携情報: 連携中のUIDを表示\n" +
+                "時間割: 登録されている授業を全て表示\n" +
+                "月~金･･･各曜日の授業を全て表示"
+        );//\n今日･明日･･･その日の一覧を表示\n数字･･･今日のその時間の授業を表示
     }
 }

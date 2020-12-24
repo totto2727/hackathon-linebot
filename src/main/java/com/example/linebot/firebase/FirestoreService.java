@@ -16,12 +16,12 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-public class FirestoreService {
+public class FirestoreService implements IFirestoreService{
     private final Firestore db;
     private final DocumentReference connectionDocRef;
     private final CollectionReference timetableColRef;
 
-    public FirestoreService(String lineUid) throws IOException {
+     public FirestoreService(String lineUid) throws IOException {
         List<FirebaseApp> apps = FirebaseApp.getApps();
         if (apps.size() == 0) {
             InputStream serviceAccount = new FileInputStream("src/main/java/com/example/linebot/firebase/timetable-2a507-firebase-adminsdk-cftah-5ae491cb19.json");
