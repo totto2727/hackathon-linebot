@@ -54,13 +54,12 @@ public class FirestoreService {
         var docRef=db.collection("Timetable").document(firebaseUid);
         var query=docRef.get();
         var document=query.get();
-        Objects.requireNonNull(document.getData()).values().stream().map(v->(Map<?,?>)v)
-                .filter(v->v.containsKey("name")).map(Object::toString).forEach(System.out::println);
         return Objects.requireNonNull(document.getData())
                 .values()
                 .stream()
                 .map(v->(Map<?,?>)v)
                 .filter(v->v.containsKey("name"))
+                .filter(v->v.get("name")!=null&&v.get("name")!="")
                 .map(Subject::new)
                 .collect(Collectors.toList());
     }
