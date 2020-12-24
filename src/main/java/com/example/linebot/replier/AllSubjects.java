@@ -28,6 +28,8 @@ public class AllSubjects implements Reply {
             return new TextMessage(message);
         } catch (ExecutionException | InterruptedException | IOException e) {
             return new TextMessage("データの取得に失敗しました");
+        }catch (NullPointerException e){
+            return new TextMessage("データがありません")
         }
     }
 }
