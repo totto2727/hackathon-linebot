@@ -9,7 +9,7 @@ import com.linecorp.bot.model.message.TextMessage;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-public class SetUid implements Reply{
+public class SetUid implements IReply {
     private final MessageEvent<TextMessageContent> event;
 
     public SetUid(MessageEvent<TextMessageContent> event) {

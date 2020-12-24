@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-public class AllSubjects implements Reply {
+public class AllSubjects implements IReply {
     private final MessageEvent<TextMessageContent> event;
 
     public AllSubjects(MessageEvent<TextMessageContent> event) {
