@@ -13,7 +13,15 @@ public class Subject {
         this.dotw = String.valueOf(subject.get("dotw"));
     }
 
+    public String getDotw() {
+        return dotw;
+    }
+
+    public String getPeriod() {
+        return period;
+    }
+
     public String showSubject(){
-        return Dotw.searchDotw(dotw)+ period +name;
+        return Dotw.searchDotw(dotw)+": "+ period +name;
     }
 }

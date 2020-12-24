@@ -10,10 +10,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -54,13 +51,15 @@ public class FirestoreService {
         var docRef=db.collection("Timetable").document(firebaseUid);
         var query=docRef.get();
         var document=query.get();
-        return Objects.requireNonNull(document.getData())
+        var data=document.getData();
+        return Objects.requireNonNull(data)
                 .values()
                 .stream()
                 .filter(v->v instanceof Map)
                 .map(v->(Map<?,?>)v)
                 .filter(v->v.get("name")!=null&&v.get("name")!="")
                 .map(Subject::new)
+                .sorted(Comparator.comparing(Subject::getDotw).thenComparing(Subject::getPeriod))
                 .collect(Collectors.toList());
     }
 }
