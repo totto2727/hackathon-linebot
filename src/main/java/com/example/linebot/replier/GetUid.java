@@ -22,10 +22,11 @@ public class GetUid implements Reply {
 
         try {
             var firebaseUid = new FirestoreService().getUid(lineUid);
-            if (!firebaseUid.equals("")) return new TextMessage("UID:" + firebaseUid);
-            else return new TextMessage("連携されていません\nUIDを登録してください");
+            return new TextMessage("UID:" + firebaseUid);
         } catch (ExecutionException | InterruptedException | IOException e) {
             return new TextMessage("データを取得できませんでした");
+        } catch (NullPointerException e) {
+            return new TextMessage("連携されていません");
         }
     }
 }

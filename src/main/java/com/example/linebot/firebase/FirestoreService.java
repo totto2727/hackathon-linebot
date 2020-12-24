@@ -1,5 +1,6 @@
 package com.example.linebot.firebase;
 
+import com.example.linebot.utils.Subject;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
@@ -9,11 +10,12 @@ import com.google.firebase.cloud.FirestoreClient;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 public class FirestoreService {
     private final Firestore db;
@@ -39,21 +41,25 @@ public class FirestoreService {
         System.out.println(result.get().getUpdateTime());
     }
 
-    public String getUid(String lineUid) throws ExecutionException, InterruptedException {
+    public String getUid(String lineUid) throws ExecutionException, InterruptedException,NullPointerException {
         var docRef = db.collection("LineConnection").document(lineUid);
         var query = docRef.get();
         var document = query.get();
         var data = document.getData();
-        if (data != null) return data.get("firebase").toString();
-        else return "";
-
+        return Objects.requireNonNull(data).get("firebase").toString();
     }
 
-    public Map<String,Object> getSubjects(String lineUid) throws ExecutionException, InterruptedException {
+    public List<Subject> getSubjects(String lineUid) throws ExecutionException, InterruptedException ,NullPointerException{
         var firebaseUid = getUid(lineUid);
         var docRef=db.collection("Timetable").document(firebaseUid);
         var query=docRef.get();
         var document=query.get();
-        return document.getData();
+        return Objects.requireNonNull(document.getData())
+                .values()
+                .stream()
+                .filter(v->v instanceof Map)
+                .map(v->(Map<?,?>)v)
+                .map(Subject::new)
+                .collect(Collectors.toList());
     }
 }
