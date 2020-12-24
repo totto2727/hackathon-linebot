@@ -23,9 +23,10 @@ public class AllSubjects implements Reply {
     public Message reply() {
         var lineUid = event.getSource().getUserId();
         try {
-            var subjects = new FirestoreService().getSubjects(lineUid);
-            var message=subjects.stream().map(s->(String)s.get("name")).collect(Collectors.joining("\n"));
-            return new TextMessage(message);
+            //var subjects =
+            new FirestoreService().getSubjects(lineUid);
+            //var message=subjects.stream().map(s->(String)s.get("name")).collect(Collectors.joining("\n"));
+            return new TextMessage("受信成功");
         } catch (ExecutionException | InterruptedException | IOException e) {
             return new TextMessage("データの取得に失敗しました");
         }catch (NullPointerException e){
