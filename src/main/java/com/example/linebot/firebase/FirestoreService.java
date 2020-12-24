@@ -57,8 +57,8 @@ public class FirestoreService {
         return Objects.requireNonNull(document.getData())
                 .values()
                 .stream()
-                .filter(v->v instanceof Map)
                 .map(v->(Map<?,?>)v)
+                .filter(v->v.containsKey("name"))
                 .map(Subject::new)
                 .collect(Collectors.toList());
     }
