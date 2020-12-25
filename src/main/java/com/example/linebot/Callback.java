@@ -1,8 +1,7 @@
 package com.example.linebot;
 
-import com.example.linebot.replier.AllSubjects;
-import com.example.linebot.replier.GetUid;
-import com.example.linebot.replier.SetUid;
+import com.example.linebot.replier.*;
+import com.example.linebot.utils.ShareData;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
@@ -12,7 +11,6 @@ import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.example.linebot.replier.Follow;
 
 @LineMessageHandler
 public class Callback {
@@ -31,10 +29,11 @@ public class Callback {
         if (text.matches("[a-zA-Z0-9]{28}")) return new SetUid(event).reply();
         if (text.equals("連携情報")) return new GetUid(event).reply();
         if (text.equals("時間割")) return new AllSubjects(event).reply();
+        if (ShareData.dotws.contains(text)) return new DotwSubjects(event).reply();
         return new TextMessage(
                 "連携情報: 連携中のUIDを表示\n" +
-                "時間割: 登録されている授業を全て表示\n" +
-                "月~金･･･各曜日の授業を全て表示"
+                        "時間割: 登録されている授業を全て表示\n" +
+                        "月~金･･･各曜日の授業を全て表示"
         );//\n今日･明日･･･その日の一覧を表示\n数字･･･今日のその時間の授業を表示
     }
 }

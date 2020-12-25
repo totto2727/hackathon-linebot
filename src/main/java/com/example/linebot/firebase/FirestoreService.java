@@ -9,6 +9,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
+import javax.annotation.Nullable;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,12 +17,12 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-public class FirestoreService implements IFirestoreService{
+public class FirestoreService implements IFirestoreService {
     private final Firestore db;
     private final DocumentReference connectionDocRef;
     private final CollectionReference timetableColRef;
 
-     public FirestoreService(String lineUid) throws IOException {
+    public FirestoreService(String lineUid) throws IOException {
         List<FirebaseApp> apps = FirebaseApp.getApps();
         if (apps.size() == 0) {
             InputStream serviceAccount = new FileInputStream("src/main/java/com/example/linebot/firebase/timetable-2a507-firebase-adminsdk-cftah-5ae491cb19.json");
@@ -36,6 +37,7 @@ public class FirestoreService implements IFirestoreService{
         this.timetableColRef = db.collection("Timetable");
     }
 
+    @Override
     public boolean setUid(String firebaseUid) throws ExecutionException, InterruptedException {
         var existUser = this.timetableColRef.document(firebaseUid).get().get().exists();
         if (existUser) {
@@ -44,6 +46,7 @@ public class FirestoreService implements IFirestoreService{
         return existUser;
     }
 
+    @Override
     public String getUid() throws ExecutionException, InterruptedException, NullPointerException {
         var query = this.connectionDocRef.get();
         var document = query.get();
@@ -51,6 +54,7 @@ public class FirestoreService implements IFirestoreService{
         return Objects.requireNonNull(data).get("firebaseUid").toString();
     }
 
+    @Override
     public List<Subject> getSubjects() throws ExecutionException, InterruptedException, NullPointerException {
         var firebaseUid = getUid();
         var docRef = this.timetableColRef.document(firebaseUid);

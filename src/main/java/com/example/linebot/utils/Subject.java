@@ -2,7 +2,7 @@ package com.example.linebot.utils;
 
 import java.util.Map;
 
-public class Subject implements Dotws{
+public class Subject implements ISubject {
     private final String name;
     private final String period;
     private final String dotw;
@@ -13,15 +13,18 @@ public class Subject implements Dotws{
         this.dotw = String.valueOf(subject.get("dotw"));
     }
 
+    @Override
     public String getDotw() {
         return dotw;
     }
 
+    @Override
     public String getPeriod() {
         return period;
     }
 
+    @Override
     public String replyMessage() {
-        return dotws.get(Integer.parseInt(dotw)) + period + ": " + name;
+        return ShareData.dotws.get(Integer.parseInt(dotw)) + period + ": " + name;
     }
 }
