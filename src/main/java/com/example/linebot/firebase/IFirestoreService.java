@@ -5,7 +5,7 @@ import com.example.linebot.utils.Subject;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-interface IFirestoreService {
+public interface IFirestoreService {
     boolean setUid(String firebaseUid) throws ExecutionException, InterruptedException;
 
     String getUid() throws ExecutionException, InterruptedException, NullPointerException;

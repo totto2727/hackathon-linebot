@@ -14,13 +14,13 @@ public class SetUid extends Reply<MessageEvent<TextMessageContent>> {
 
     public SetUid(MessageEvent<TextMessageContent> event) {
         super(event);
-        firebaseUid = event.getMessage().getText();
+        firebaseUid = super.event.getMessage().getText();
     }
 
     @Override
     public Message reply() {
         try {
-            var result = new FirestoreService(lineUid).setUid(firebaseUid);
+            var result = new FirestoreService(super.lineUid).setUid(firebaseUid);
             if (result) return new TextMessage("連携に成功しました");
             else return new TextMessage("そのUIDを持つユーザーが存在しません");
         } catch (ExecutionException | InterruptedException | IOException e) {

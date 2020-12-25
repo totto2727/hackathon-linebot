@@ -14,17 +14,18 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 public class DotwSubjects extends Reply<MessageEvent<TextMessageContent>> {
-    String text = event.getMessage().getText();
+    private final String text;
 
     public DotwSubjects(MessageEvent<TextMessageContent> event) {
         super(event);
+        this.text=super.event.getMessage().getText();
     }
 
     @Override
     public Message reply() {
         try {
             var dotw = String.valueOf(ShareData.dotws.indexOf(text));
-            var message = new FirestoreService(lineUid).getSubjects().stream()
+            var message = new FirestoreService(super.lineUid).getSubjects().stream()
                     .filter(s -> s.getDotw().equals(dotw))
                     .map(Subject::replyMessage)
                     .collect(Collectors.joining("\n"));

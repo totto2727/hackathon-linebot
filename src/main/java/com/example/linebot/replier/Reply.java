@@ -3,7 +3,7 @@ package com.example.linebot.replier;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.message.Message;
 
-abstract class Reply<T extends Event> implements IReply {
+public abstract class Reply<T extends Event> implements IReply {
     protected final T event;
     protected final String lineUid;
 

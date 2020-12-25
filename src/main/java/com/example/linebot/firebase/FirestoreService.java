@@ -9,7 +9,6 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
-import javax.annotation.Nullable;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +17,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 public class FirestoreService implements IFirestoreService {
-    private final Firestore db;
     private final DocumentReference connectionDocRef;
     private final CollectionReference timetableColRef;
 
@@ -32,23 +30,23 @@ public class FirestoreService implements IFirestoreService {
                     .build();
             FirebaseApp.initializeApp(options);
         }
-        this.db = FirestoreClient.getFirestore();
+        Firestore db = FirestoreClient.getFirestore();
         this.connectionDocRef = db.collection("LineConnection").document(lineUid);
         this.timetableColRef = db.collection("Timetable");
     }
 
     @Override
     public boolean setUid(String firebaseUid) throws ExecutionException, InterruptedException {
-        var existUser = this.timetableColRef.document(firebaseUid).get().get().exists();
+        var existUser = timetableColRef.document(firebaseUid).get().get().exists();
         if (existUser) {
-            this.connectionDocRef.set(Map.of("firebaseUid", firebaseUid));
+            connectionDocRef.set(Map.of("firebaseUid", firebaseUid));
         }
         return existUser;
     }
 
     @Override
     public String getUid() throws ExecutionException, InterruptedException, NullPointerException {
-        var query = this.connectionDocRef.get();
+        var query = connectionDocRef.get();
         var document = query.get();
         var data = document.getData();
         return Objects.requireNonNull(data).get("firebaseUid").toString();
@@ -57,7 +55,7 @@ public class FirestoreService implements IFirestoreService {
     @Override
     public List<Subject> getSubjects() throws ExecutionException, InterruptedException, NullPointerException {
         var firebaseUid = getUid();
-        var docRef = this.timetableColRef.document(firebaseUid);
+        var docRef = timetableColRef.document(firebaseUid);
         var query = docRef.get();
         var document = query.get();
         var data = document.getData();

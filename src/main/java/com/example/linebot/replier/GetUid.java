@@ -17,7 +17,7 @@ public class GetUid extends Reply<MessageEvent<TextMessageContent>> {
     @Override
     public Message reply() {
         try {
-            var firebaseUid = new FirestoreService(lineUid).getUid();
+            var firebaseUid = new FirestoreService(super.lineUid).getUid();
             return new TextMessage("UID:" + firebaseUid);
         } catch (ExecutionException | InterruptedException | IOException e) {
             return new TextMessage("データを取得できませんでした");

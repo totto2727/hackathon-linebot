@@ -20,7 +20,7 @@ public class AllSubjects extends Reply<MessageEvent<TextMessageContent>> {
     @Override
     public Message reply() {
         try {
-            var subjects = new FirestoreService(lineUid).getSubjects();
+            var subjects = new FirestoreService(super.lineUid).getSubjects();
             var message = subjects.stream()
                     .map(Subject::replyMessage)
                     .collect(Collectors.joining("\n"));
