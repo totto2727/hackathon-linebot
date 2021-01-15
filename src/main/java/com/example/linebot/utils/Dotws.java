@@ -36,7 +36,7 @@ public enum Dotws {
 
     public static String searchIndex(String dotw){
         return Arrays.stream(Dotws.values())
-                .filter(v->dotw.equals(v.getDotw()))
+                .filter(v->v.getDotw().equals(dotw))
                 .findFirst()
                 .orElse(Dotws.valueOf("Error"))
                 .getIndex();
@@ -44,13 +44,13 @@ public enum Dotws {
 
     public static String searchDotw(String index) {
         return Arrays.stream(Dotws.values())
-                .filter(v -> index.equals(v.getIndex()))
+                .filter(v -> v.getIndex().equals(index))
                 .findFirst()
                 .orElse(Dotws.valueOf("Error"))
                 .getDotw();
     }
 
-    public static Boolean isDotw(String str){
-        return Dotws.getDotwsList().contains(str);
+    public static Boolean isDotw(String dotw){
+        return Dotws.getDotwsList().contains(dotw);
     }
 }
