@@ -25,6 +25,6 @@ public class Subject implements ISubject {
 
     @Override
     public String replyMessage() {
-        return ShareData.dotws.get(Integer.parseInt(dotw)) + period + ": " + name;
+        return Dotws.searchDotw(dotw) + period + ": " + name;
     }
 }

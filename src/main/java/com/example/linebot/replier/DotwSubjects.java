@@ -1,6 +1,7 @@
 package com.example.linebot.replier;
 
 import com.example.linebot.firebase.FirestoreService;
+import com.example.linebot.utils.Dotws;
 import com.example.linebot.utils.ShareData;
 import com.example.linebot.utils.Subject;
 import com.linecorp.bot.model.event.MessageEvent;
@@ -8,7 +9,6 @@ import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 
-import java.awt.event.TextEvent;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -24,7 +24,7 @@ public class DotwSubjects extends Reply<MessageEvent<TextMessageContent>> {
     @Override
     public Message reply() {
         try {
-            var dotw = String.valueOf(ShareData.dotws.indexOf(text));
+            var dotw = String.valueOf(Dotws.searchIndex(text));
             var message = new FirestoreService(super.lineUid).getSubjects().stream()
                     .filter(s -> s.getDotw().equals(dotw))
                     .map(Subject::replyMessage)

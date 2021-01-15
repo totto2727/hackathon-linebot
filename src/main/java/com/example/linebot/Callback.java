@@ -1,6 +1,7 @@
 package com.example.linebot;
 
 import com.example.linebot.replier.*;
+import com.example.linebot.utils.Dotws;
 import com.example.linebot.utils.ShareData;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.MessageEvent;
@@ -29,7 +30,7 @@ public class Callback {
         if (text.matches("[a-zA-Z0-9]{28}")) return new SetUid(event).reply();
         if (text.equals("連携情報")) return new GetUid(event).reply();
         if (text.equals("時間割")) return new AllSubjects(event).reply();
-        if (ShareData.dotws.contains(text)) return new DotwSubjects(event).reply();
+        if (Dotws.isDotw(text)) return new DotwSubjects(event).reply();
         return new TextMessage(
                 "連携情報: 連携中のUIDを表示\n" +
                         "時間割: 登録されている授業を全て表示\n" +
