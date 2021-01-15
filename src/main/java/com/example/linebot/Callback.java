@@ -2,7 +2,6 @@ package com.example.linebot;
 
 import com.example.linebot.replier.*;
 import com.example.linebot.utils.Dotws;
-import com.example.linebot.utils.ShareData;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;

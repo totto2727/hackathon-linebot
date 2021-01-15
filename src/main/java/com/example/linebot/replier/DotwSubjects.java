@@ -2,7 +2,6 @@ package com.example.linebot.replier;
 
 import com.example.linebot.firebase.FirestoreService;
 import com.example.linebot.utils.Dotws;
-import com.example.linebot.utils.ShareData;
 import com.example.linebot.utils.Subject;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;

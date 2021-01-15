@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="1037.0" y="1045.0">com.example.linebot.firebase.FirestoreService</node>
+    <node x="1016.75" y="878.0">com.example.linebot.firebase.IFirestoreService</node>
+    <node x="635.3333333333333" y="1072.0">com.example.linebot.replier.Reply</node>
+    <node x="224.11666666666662" y="1554.0">com.example.linebot.Callback</node>
+    <node x="1291.5" y="1369.0">com.example.linebot.replier.AllSubjects</node>
+    <node x="10.5" y="1355.0">com.example.linebot.replier.DotwSubjects</node>
+    <node x="635.3333333333333" y="905.0">com.example.linebot.replier.IReply</node>
+    <node x="596.5" y="1369.0">com.example.linebot.replier.GetUid</node>
+    <node x="1136.75" y="217.0">com.example.linebot.utils.ISubject</node>
+    <node x="401.5" y="1369.0">com.example.linebot.replier.Follow</node>
+    <node x="22.413857142857182" y="0.0">com.example.linebot.utils.Dotws</node>
+    <node x="1092.5" y="601.0">com.example.linebot.utils.Subject</node>
+    <node x="944.5" y="1355.0">com.example.linebot.replier.SetUid</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.example.linebot.replier.Follow" target="com.example.linebot.replier.Reply">
+      <point x="43.75" y="-45.5" />
+      <point x="532.75" y="1305.0" />
+      <point x="684.6833333333333" y="1305.0" />
+      <point x="-21.149999999999977" y="73.0" />
+    </edge>
+    <edge source="com.example.linebot.replier.GetUid" target="com.example.linebot.replier.Reply">
+      <point x="-109.33333333333337" y="-45.5" />
+      <point x="651.1666666666666" y="1315.0" />
+      <point x="698.7833333333333" y="1315.0" />
+      <point x="-7.0499999999999545" y="73.0" />
+    </edge>
+    <edge source="com.example.linebot.replier.GetUid" target="com.example.linebot.firebase.FirestoreService">
+      <point x="109.33333333333326" y="-45.5" />
+      <point x="869.8333333333333" y="1335.0" />
+      <point x="1145.0" y="1335.0" />
+      <point x="-36.0" y="100.0" />
+    </edge>
+    <edge source="com.example.linebot.replier.DotwSubjects" target="com.example.linebot.utils.Subject">
+      <point x="-74.19999999999982" y="-59.5" />
+      <point x="121.80000000000018" y="1335.0" />
+      <point x="184.35135714285724" y="1335.0" />
+      <point x="184.35135714285724" y="853.0" />
+      <point x="1114.625" y="853.0" />
+      <point x="-66.375" y="113.5" />
+    </edge>
+    <edge source="com.example.linebot.utils.Subject" target="com.example.linebot.utils.ISubject">
+      <point x="44.25" y="-113.5" />
+      <point x="0.0" y="58.5" />
+    </edge>
+    <edge source="com.example.linebot.Callback" target="com.example.linebot.replier.Follow">
+      <point x="-61.28571428571445" y="-59.0" />
+      <point x="377.33095238095217" y="1494.0" />
+      <point x="445.25" y="1494.0" />
+      <point x="-43.75" y="45.5" />
+    </edge>
+    <edge source="com.example.linebot.replier.SetUid" target="com.example.linebot.firebase.FirestoreService">
+      <point x="109.0" y="-59.5" />
+      <point x="36.0" y="100.0" />
+    </edge>
+    <edge source="com.example.linebot.Callback" target="com.example.linebot.replier.SetUid">
+      <point x="122.57142857142867" y="-59.0" />
+      <point x="561.1880952380952" y="1524.0" />
+      <point x="1108.0" y="1524.0" />
+      <point x="0.0" y="59.5" />
+    </edge>
+    <edge source="com.example.linebot.replier.AllSubjects" target="com.example.linebot.utils.Subject">
+      <point x="132.0" y="-45.5" />
+      <point x="1599.5" y="853.0" />
+      <point x="1247.375" y="853.0" />
+      <point x="66.375" y="113.5" />
+    </edge>
+    <edge source="com.example.linebot.replier.SetUid" target="com.example.linebot.replier.Reply">
+      <point x="-109.0" y="-59.5" />
+      <point x="999.0" y="1305.0" />
+      <point x="726.9833333333332" y="1305.0" />
+      <point x="21.149999999999977" y="73.0" />
+    </edge>
+    <edge source="com.example.linebot.Callback" target="com.example.linebot.utils.Dotws">
+      <point x="-183.8571428571429" y="-59.0" />
+      <point x="254.75952380952373" y="1534.0" />
+      <point x="0.0" y="1534.0" />
+      <point x="0.0" y="576.0" />
+      <point x="57.41385714285718" y="576.0" />
+      <point x="-70.0" y="275.5" />
+    </edge>
+    <edge source="com.example.linebot.firebase.IFirestoreService" target="com.example.linebot.utils.Subject">
+      <point x="0.0" y="-58.5" />
+      <point x="1122.75" y="853.0" />
+      <point x="1158.875" y="853.0" />
+      <point x="-22.125" y="113.5" />
+    </edge>
+    <edge source="com.example.linebot.replier.DotwSubjects" target="com.example.linebot.utils.Dotws">
+      <point x="-148.39999999999986" y="-59.5" />
+      <point x="47.600000000000136" y="1335.0" />
+      <point x="97.91385714285718" y="1335.0" />
+      <point x="97.91385714285718" y="576.0" />
+      <point x="127.41385714285718" y="576.0" />
+      <point x="0.0" y="275.5" />
+    </edge>
+    <edge source="com.example.linebot.firebase.FirestoreService" target="com.example.linebot.firebase.IFirestoreService">
+      <point x="-72.0" y="-100.0" />
+      <point x="1109.0" y="1020.0" />
+      <point x="1122.75" y="1020.0" />
+      <point x="0.0" y="58.5" />
+    </edge>
+    <edge source="com.example.linebot.Callback" target="com.example.linebot.replier.DotwSubjects">
+      <point x="-122.57142857142867" y="-59.0" />
+      <point x="316.04523809523795" y="1524.0" />
+      <point x="196.0" y="1524.0" />
+      <point x="0.0" y="59.5" />
+    </edge>
+    <edge source="com.example.linebot.replier.DotwSubjects" target="com.example.linebot.firebase.FirestoreService">
+      <point x="148.4000000000001" y="-59.5" />
+      <point x="344.4000000000001" y="1325.0" />
+      <point x="1073.0" y="1325.0" />
+      <point x="-108.0" y="100.0" />
+    </edge>
+    <edge source="com.example.linebot.replier.AllSubjects" target="com.example.linebot.firebase.FirestoreService">
+      <point x="44.0" y="-45.5" />
+      <point x="1511.5" y="1265.0" />
+      <point x="1289.0" y="1265.0" />
+      <point x="108.0" y="100.0" />
+    </edge>
+    <edge source="com.example.linebot.Callback" target="com.example.linebot.replier.AllSubjects">
+      <point x="183.8571428571429" y="-59.0" />
+      <point x="622.4738095238095" y="1534.0" />
+      <point x="1467.5" y="1534.0" />
+      <point x="0.0" y="45.5" />
+    </edge>
+    <edge source="com.example.linebot.replier.DotwSubjects" target="com.example.linebot.replier.Reply">
+      <point x="74.20000000000005" y="-59.5" />
+      <point x="270.20000000000005" y="1285.0" />
+      <point x="656.4833333333332" y="1285.0" />
+      <point x="-49.35000000000002" y="73.0" />
+    </edge>
+    <edge source="com.example.linebot.replier.AllSubjects" target="com.example.linebot.replier.Reply">
+      <point x="-44.0" y="-45.5" />
+      <point x="1423.5" y="1275.0" />
+      <point x="769.2833333333332" y="1275.0" />
+      <point x="63.44999999999993" y="73.0" />
+    </edge>
+    <edge source="com.example.linebot.utils.Subject" target="com.example.linebot.utils.Dotws">
+      <point x="-44.25" y="-113.5" />
+      <point x="1136.75" y="576.0" />
+      <point x="197.41385714285718" y="576.0" />
+      <point x="70.0" y="275.5" />
+    </edge>
+    <edge source="com.example.linebot.replier.Reply" target="com.example.linebot.replier.IReply">
+      <point x="0.0" y="-73.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="com.example.linebot.Callback" target="com.example.linebot.replier.GetUid">
+      <point x="61.28571428571422" y="-59.0" />
+      <point x="499.90238095238084" y="1514.0" />
+      <point x="760.5" y="1514.0" />
+      <point x="0.0" y="45.5" />
+    </edge>
+    <edge source="com.example.linebot.firebase.FirestoreService" target="com.example.linebot.utils.Subject">
+      <point x="72.0" y="-100.0" />
+      <point x="1253.0" y="1020.0" />
+      <point x="1239.25" y="1020.0" />
+      <point x="1239.25" y="853.0" />
+      <point x="1203.125" y="853.0" />
+      <point x="22.125" y="113.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.44739952718676124" x="822.0" y="836.0" />
+  <SelectedNodes>
+    <node>com.example.linebot.utils.Dotws</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
