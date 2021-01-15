@@ -29,7 +29,7 @@ public class DotwSubjects extends Reply<MessageEvent<TextMessageContent>> {
                     .filter(s -> s.getDotw().equals(dotw))
                     .map(Subject::replyMessage)
                     .collect(Collectors.joining("\n"));
-            return new TextMessage(message);
+            return new TextMessage(message.equals("")?"授業はありません":message);
         } catch (ExecutionException | InterruptedException | IOException e) {
             return new TextMessage("データの取得に失敗しました");
         } catch (NullPointerException e) {
