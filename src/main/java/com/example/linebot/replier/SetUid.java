@@ -10,15 +10,13 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public class SetUid extends Reply<MessageEvent<TextMessageContent>> {
-    private final String firebaseUid;
-
     public SetUid(MessageEvent<TextMessageContent> event) {
         super(event);
-        firebaseUid = super.event.getMessage().getText();
     }
 
     @Override
     public Message reply() {
+        var firebaseUid = super.event.getMessage().getText();
         try {
             var result = new FirestoreService(super.lineUid).setUid(firebaseUid);
             if (result) return new TextMessage("連携に成功しました");

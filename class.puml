@@ -1,0 +1,159 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+
+package linebot{
+package linebot.utils{
+
+}
+
+package linebot.firebase{
+interface IFirestoreService{
++ setUid(firebaseUid: String): boolean
++ getUid(): String
++ getSubjects(): List<Subject>
+}
+
+class FirestoreService implements IFirestoreService{
+- connectionDocRef: DocumentReference
+- timetableColRef: CollectionReference
+--
++ FirestoreService(lineUid: String)
+--
++ setUid(firebaseUid: String): boolean
++ getUid(): String
++ getSubjects(): List<Subject>
+}
+}
+
+
+package linebot.replier{
+interface IReply{
++ reply(): Message
+}
+
+abstract class Reply<T extends Event> implements IReply{
+# event: T
+# lineUid: String
+--
++ Reply(event: T)
+--
++ {abstract}reply(): Message
+}
+
+class AllSubjects extends Reply{
+--
++ AllSubjects(event: MessageEvent<TextMessageContent>)
+--
++ reply(): Message
+}
+note bottom of AllSubjects:Reply<MessageEvent<TextMessageContent>>
+
+class DotwSubject extends Reply{
+--
++ DotwSubject(event: MessageEvent<TextMessageContent>)
+--
++ reply(): Message
+}
+note bottom of DotwSubject:Reply<MessageEvent<TextMessageContent>>
+
+class Follow extends Reply{
+--
++ Follow(event: FollowEvent)
+--
++ reply(): Message
+}
+note bottom of Follow:Reply<FollowEvent>
+
+class GetUid extends Reply{
+--
++ GetUid(event: MessageEvent<TextMessageContent>)
+--
++ reply(): Message
+}
+note bottom of GetUid:Reply<MessageEvent<TextMessageContent>>
+
+class SetUid extends Reply{
+--
++ SetUid(event: MessageEvent<TextMessageContent>)
+--
++ reply(): Message
+}
+note bottom of SetUid:Reply<MessageEvent<TextMessageContent>>
+}
+
+
+package linebot.utils{
+interface ISubject{
++ getPeriod(): String
++ getDotw(): String
++ replyMessage(): String
+}
+
+class Subject implements ISubject{
++ name: String
++ period: String
++ dotw: String
+--
++ Subject(subject: Map<?, ?>)
+--
++ getPeriod(): String
++ getDotw(): String
++ replyMessage(): String
+}
+
+enum Dotw{
+Mon("1","月")
+Tue("2","火")
+Wen("3","水")
+Thu("4","木")
+Fri("5","金")
+Sut("6","土")
+Sun("7","日")
+Error("0","曜日不明")
+}
+}
+
+
+class Callback{
++ {static}log: Logger
+--
+--
++ handleFollow(event: FollowEvent): Message
++ handleFollow(MessageEvent<TextMessageContent>): Message
+}
+note top of Callback: @LineMessageHandler
+
+class LinebotApplication{
++ {static}main(args: String[]): void
+}
+note top of LinebotApplication: @SpringBootApplication
+}
+
+GetUid ..> FirestoreService:<<create>>
+SetUid ..> FirestoreService:<<create>>
+AllSubjects ..> FirestoreService:<<create>>
+DotwSubject ..> FirestoreService:<<create>>
+
+Subject <.. IFirestoreService
+Subject <.. FirestoreService
+Subject <.. AllSubjects
+Subject <.. DotwSubject
+
+Dotw <.. DotwSubject
+Dotw <.. Subject
+Dotw <.. Callback
+
+Reply <.. DotwSubject
+Reply <.. Follow
+Reply <.. GetUid
+Reply <.. SetUid
+Reply <.. AllSubjects
+
+
+Follow <.. Callback:<<create>>
+DotwSubject <.. Callback:<<create>>
+AllSubjects <.. Callback:<<create>>
+GetUid <.. Callback:<<create>>
+SetUid <.. Callback:<<create>>
+@enduml

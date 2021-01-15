@@ -12,16 +12,14 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-public class DotwSubjects extends Reply<MessageEvent<TextMessageContent>> {
-    private final String text;
-
-    public DotwSubjects(MessageEvent<TextMessageContent> event) {
+public class DotwSubject extends Reply<MessageEvent<TextMessageContent>> {
+    public DotwSubject(MessageEvent<TextMessageContent> event) {
         super(event);
-        this.text=super.event.getMessage().getText();
     }
 
     @Override
     public Message reply() {
+        var text=super.event.getMessage().getText();
         try {
             var dotw = Dotws.searchIndex(text);
             var message = new FirestoreService(super.lineUid).getSubjects().stream()
