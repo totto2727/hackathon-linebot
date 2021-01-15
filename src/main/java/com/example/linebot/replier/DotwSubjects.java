@@ -24,7 +24,7 @@ public class DotwSubjects extends Reply<MessageEvent<TextMessageContent>> {
     @Override
     public Message reply() {
         try {
-            var dotw = String.valueOf(Dotws.searchIndex(text));
+            var dotw = Dotws.searchIndex(text);
             var message = new FirestoreService(super.lineUid).getSubjects().stream()
                     .filter(s -> s.getDotw().equals(dotw))
                     .map(Subject::replyMessage)

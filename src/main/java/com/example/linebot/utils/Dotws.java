@@ -34,17 +34,17 @@ public enum Dotws {
         return Arrays.stream(Dotws.values()).map(Dotws::getDotw).collect(Collectors.toList());
     }
 
-    public static String searchIndex(String str){
+    public static String searchIndex(String dotw){
         return Arrays.stream(Dotws.values())
-                .filter(v->str.equals(v.getDotw()))
+                .filter(v->dotw.equals(v.getDotw()))
                 .findFirst()
-                .orElse(Dotws.valueOf("0"))
+                .orElse(Dotws.valueOf("Error"))
                 .getIndex();
     }
 
-    public static String searchDotw(String i) {
+    public static String searchDotw(String index) {
         return Arrays.stream(Dotws.values())
-                .filter(v -> i.equals(v.getIndex()))
+                .filter(v -> index.equals(v.getIndex()))
                 .findFirst()
                 .orElse(Dotws.valueOf("Error"))
                 .getDotw();
