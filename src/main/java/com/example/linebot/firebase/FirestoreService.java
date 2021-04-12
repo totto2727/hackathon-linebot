@@ -23,7 +23,7 @@ public class FirestoreService implements IFirestoreService {
     public FirestoreService(String lineUid) throws IOException {
         List<FirebaseApp> apps = FirebaseApp.getApps();
         if (apps.size() == 0) {
-            InputStream serviceAccount = new FileInputStream("src/main/java/com/example/linebot/firebase/timetable-2a507-firebase-adminsdk-cftah-5ae491cb19.json");
+            InputStream serviceAccount = new FileInputStream("src/main/java/com/example/linebot/firebase/apikeyのjsonを入れて下さい");
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setDatabaseUrl("https://timetable-2a507.firebaseio.com/")
