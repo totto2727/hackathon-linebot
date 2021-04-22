@@ -9,9 +9,11 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -23,8 +25,10 @@ public class FirestoreService implements IFirestoreService {
     public FirestoreService(String lineUid) throws IOException {
         List<FirebaseApp> apps = FirebaseApp.getApps();
         if (apps.size() == 0) {
-            InputStream serviceAccount = new FileInputStream("src/main/java/com/example/linebot/firebase/apikeyのjsonを入れて下さい");
-            FirebaseOptions options = FirebaseOptions.builder()
+            var env=System.getenv("FIREBASE");
+            var serviceAccount=new ByteArrayInputStream(env.getBytes(StandardCharsets.UTF_8));
+            //var serviceAccount = new FileInputStream("src/main/java/com/example/linebot/firebase/apikeyのjsonを入れて下さい");
+            var options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setDatabaseUrl("https://timetable-2a507.firebaseio.com/")
                     .build();
