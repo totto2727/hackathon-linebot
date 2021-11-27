@@ -11,11 +11,7 @@ public class Follow extends Reply<FollowEvent> {
 
     @Override
     public Message reply() {
-        var text = "連携手順\n" +
-                "①以下のURLから、ログインする\n" +
-                "https://timetable-2a507.web.app/\n" +
-                "②ログイン後サイト上部にあるUIDをコピーする\n" +
-                "③UIDを入力してこのBotに送信";
+        var text = "災害に備えて準備を万端にしよう!";
         return new TextMessage(text);
     }
 }
