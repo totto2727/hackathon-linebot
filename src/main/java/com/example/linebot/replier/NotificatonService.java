@@ -22,7 +22,7 @@ public class NotificatonService {
         this.lineMessagingClient = lineMessagingClient;
     }
 
-    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "* */1 * * * *", zone = "Asia/Tokyo")
     public void pushNotification() {
         var pushMessage = new PushMessage("Ue68892dce0f152aa5c636830c283fd66", new TextMessage("食べ物の賞味期限が2022/10/28に切れます"));
         try {
