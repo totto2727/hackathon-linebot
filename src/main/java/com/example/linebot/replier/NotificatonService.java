@@ -1,6 +1,7 @@
 package com.example.linebot.replier;
 
 import com.linecorp.bot.client.LineMessagingClient;
+import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import org.slf4j.Logger;
@@ -22,11 +23,12 @@ public class NotificatonService {
         this.lineMessagingClient = lineMessagingClient;
     }
 
-    @Scheduled(cron = "0 0-59 * * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "0 */5 * * * *", zone = "Asia/Tokyo")
     public void pushNotification() {
-        var pushMessage = new PushMessage("Ue68892dce0f152aa5c636830c283fd66", new TextMessage("食べ物の賞味期限が2022/10/28に切れます"));
+        // var pushMessage = new PushMessage("Ue68892dce0f152aa5c636830c283fd66", new TextMessage("食べ物の賞味期限が2022/10/28に切れます"));
+        var pushMessage = new Broadcast( new TextMessage("食べ物の賞味期限が2022/10/28に切れます"));
         try {
-            var response = lineMessagingClient.pushMessage(pushMessage).get();
+            var response = lineMessagingClient.broadcast(pushMessage).get();
             log.info("Sent messages: {}", response);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
