@@ -13,7 +13,7 @@ public class AllTerm extends Reply<MessageEvent<TextMessageContent>> {
 
     @Override
     public Message reply() {
-        return new TextMessage("期限一覧/n食べ物：2021/11/28");
+        return new TextMessage("期限一覧\n食べ物：2021/11/28");
     }
 
 }
