@@ -33,7 +33,7 @@ public class Callback {
             return new GetLineId(event).reply();
         if (text.equals("期限切れ"))
             return new Notification(event).reply();
-        if (text.equals(event))
+        if (text.equals("期限一覧"))
             new AllTerm(event).reply();
         return new TextMessage(
                 "連携情報: 連携中のUIDを表示\n");
