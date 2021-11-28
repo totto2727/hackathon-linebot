@@ -35,6 +35,8 @@ public class Callback {
             return new Notification(event).reply();
         if (text.equals("期限一覧"))
             return new AllTerm(event).reply();
+        if (text.equals("必要なもの"))
+            return new Required(event).reply();
         return new TextMessage(
                 "連携情報: 連携中のUIDを表示\n");
     }

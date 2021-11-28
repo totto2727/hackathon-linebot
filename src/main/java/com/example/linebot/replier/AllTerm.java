@@ -13,7 +13,7 @@ public class AllTerm extends Reply<MessageEvent<TextMessageContent>> {
 
     @Override
     public Message reply() {
-        return new TextMessage("期限一覧\n食べ物：2021/11/28");
+        return new TextMessage("水 2022/11/28\n食料 2022/11/28\n予備電池 2022/11/28\n使い捨てカイロ 2022/11/28\n\nに期限が切れるよ!");
     }
 
 }

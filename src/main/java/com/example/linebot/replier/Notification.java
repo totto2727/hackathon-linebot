@@ -12,7 +12,7 @@ public class Notification extends Reply<MessageEvent<TextMessageContent>> {
 
     @Override
     public Message reply() {
-        var message = new TextMessage("食べ物の賞味期限が2022/10/28に切れます");
+        var message = new TextMessage("食料\n予備電池\n使い捨てカイロ\n\nの消費期限が切れてるよ！");
         return message;
     }
 }
